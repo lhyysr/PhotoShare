@@ -5,7 +5,7 @@ An online photo social network system
 In this project, you will design, implement and document a database system for a web based photo social sharing application. You need also to provide the web based interface to the database. The final system should be functional and will be similar to Flickr!
 
 # Data
-__Users__
+__Users__/
 Each user is identified by a unique user id and has the following attributes: first name, last name, email, date of birth, hometown, gender, and password. A user can have a number of Albums.
 __Friends__
 Each user can have any number of friends.
