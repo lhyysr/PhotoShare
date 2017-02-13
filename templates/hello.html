@@ -1,0 +1,87 @@
+<!-- author ben lawson (balawson@bu.edu) -->
+<!-- Edited by: Haoyuan Liu (lhyysr@bu.edu) -->
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Photoshare</title>
+</head>
+<body>
+	<h1>Welecome to Photoshare</h1>
+
+	{% if message %}
+ 	<h1>{{message}}!</h1>
+	{% endif %}
+
+	{% if name %}
+  	<h2>Hello {{ name }}!</h2>
+	{% endif %}
+
+	{% if login %}
+  	<p>Go to <a href='/profile'>profile?</a></p>
+  	{% else %}
+  	<p>You are not logged in! <a href="/login">Login</a> or <a href="/register">Register</a>!</p>
+	{% endif %}
+
+	<ul style="color: red">
+		<li><a href='/logout'>Logout</a></li>
+		<li><a href='/'>Home</a></li>
+	</ul>
+
+	{% if active %}
+		<h3>Top 10 Active Users:</h3>
+		<ol>
+			{% for user in active %}
+				<li>{{ user[0] }}, contribution: {{ user[1] }}</li>
+			{% endfor %}
+		</ol>
+	{% endif %}
+
+	{% if tags %}
+    	<h3>View all tags:</h3>
+        <ul>
+            {% for tag in tags %}
+            <!-- links to a page shows all photos tagged with that tag -->
+            <a href='/tag?tag=10{{ tag }}'><li>{{ tag }}</li></a> 
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+	{% if poptags %}
+		<h3>View the most popular tags:</h3>
+        <ul>
+            {% for tag in poptags %}
+            <!-- links to a page shows all photos tagged with that tag -->
+            <a href='/tag?tag=10{{ tag }}'><li>{{ tag }}</li></a> 
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+	{% if photos %}
+	<h3>Search photos by tag(s):</h3>
+	<form method="post" action="/">
+        <input type="text" name="tags" required="true" placeholder="one or more tags" />
+        <input  type="submit" name='submit' value="search" />
+    </form>
+
+	<h3>View all photos:</h3>
+    <div>
+    	{% for photo in photos %}
+        <center><img src='data:image/png;base64, {{photo[0]}}' width="400" /></center>
+ 		<p style="text-align: center">Caption: {{ photo[2] }}</p>
+ 		<form method="post" action="/comment">
+ 			<center><button type="submit" name="submit" value='{{ photo[1] }}'>Comment</button></center>
+ 		</form>
+ 		<p style="text-align: center;">---------------------------------------------------------------------------</p>
+    	{% endfor %}
+    </div>
+    {% else %}
+    <h3>There is no photo :(</h3>
+    {% endif %}
+
+	<ul>
+		<li><a href='/logout'>Logout</a></li>
+		<li><a href='/'>Home</a></li>
+	</ul>
+</body>
+</html>
+

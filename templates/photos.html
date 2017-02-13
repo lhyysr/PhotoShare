@@ -1,0 +1,45 @@
+<!-- author: haoyuan liu (lhyysr@bu.edu) -->
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Photos</title>
+</head>
+<body>
+	{% if name %}
+	<h1>Photos of {{ name }}</h1>
+	{% endif %}
+
+	<ul>
+		<li><a href="/profile">Profile</a></li>
+		<li><a href="/albums">Albums</a></li>
+		<li><a href='/logout'>Logout</a></li>
+		<li><a href='/'>Home</a></li>
+	</ul>
+
+	{% if message %}
+	<p><em>{{ message }}</em></p>
+	{% endif %}
+
+	<a href="/upload"><h3>Upload a New Photo</h3></a>
+
+	{% if albums %}
+    <h3>Photos by Albums</h3>
+        <ul>
+            {% for album in albums %}
+            <!-- links to a page shows all photos in that album -->
+            <a href='/album?album_id={{ album[1] }}'><li>{{ album[0] }}</li></a> 
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+	{% if tags %}
+    <h3>Photos by Tags</h3>
+        <ul>
+            {% for tag in tags %}
+            <!-- links to a page shows all photos tagged with that tag -->
+            <a href='/tag?tag=01{{ tag }}'><li>{{ tag }}</li></a> 
+            {% endfor %}
+        </ul>
+    {% endif %}
+</body>
+</html>

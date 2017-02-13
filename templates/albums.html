@@ -1,0 +1,78 @@
+<!-- author: haoyuan liu (lhyysr@bu.edu) -->
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Albums</title>
+</head>
+<body>
+	{% if name %}
+	<h1>Albums of {{ name }}</h1>
+	{% endif %}
+
+	<ul>
+		<li><a href="/profile">Profile</a></li>
+		<li><a href="/photos">Photos</a></li>
+		<li><a href='/logout'>Logout</a></li>
+		<li><a href='/'>Home</a></li>
+	</ul>
+
+	{% if CreatedAlbum %}
+	<p><em>Album {{ CreatedAlbum }} has been Created!</em></p>
+	{% endif %}
+
+	{% if DeletedAlbum %}
+	<p><em>Album {{ DeletedAlbum }} has been Deleted!</em></p>
+	{% endif %}
+
+	{% if ModifiedAlbum and NewName%}
+	<p><em>Album {{ ModifiedAlbum }} has been Renamed as {{ NewName }}!</em></p>
+	{% endif %}
+
+	{% if message %}
+	<p><em>{{ message }}</em></p>
+	{% endif %}
+
+	{% if albums %}
+    <h3>Existing Albums:</h3>
+        <ul>
+            {% for album in albums %}
+            <!-- links to a page shows all photos in that album -->
+            <a href='/album?album_id={{ album[1] }}'><li>{{ album[0] }}</li></a> 
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+	<h3>Create a New Album</h3>
+	<div id="content">
+        <form method="post" action="/albums">
+            <label for="album">Album Name:</label>
+            <input type="text" name="name" required="true"/><br />
+            
+            <input type="submit" name='submit' value="create"/>
+        </form>
+    </div>
+
+	<h3>Delete an Album and All Photos in it</h3>
+	<div id="content">
+        <form method="post" action="/albums">
+            <label for="album">Album Name:</label>
+            <input type="text" name="name" required="true"/><br />
+            
+            <input  type="submit" name='submit' value="delete" />
+        </form>
+    </div>
+
+    <h3>Rename an Existing Album</h3>
+	<div id="content">
+        <form method="post" action="/albums">
+            <label for="album">Album Name:</label>
+            <input type="text" name="name" required="true"/><br />
+
+            <label for="album">New Name:</label>
+            <input type="text" name="newName" required="true"/><br />
+            
+            <input  type="submit" name='submit' value="rename" />
+        </form>
+    </div>
+</body>
+</html>

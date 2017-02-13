@@ -1,0 +1,43 @@
+<!-- author: haoyuan liu (lhyysr@bu.edu) -->
+<!DOCTYPE html>
+<html>
+<head>
+	{% if album %}
+	<title>{{ album }}</title>
+	{% endif %}
+</head>
+<body>
+	{% if name %}
+	<h1>Photos of {{ name }}</h1>
+	{% endif %}
+
+	<ul>
+        <li><a href="/profile">Profile</a></li>
+        <li><a href="/albums">Albums</a></li>
+        <li><a href="/photos">Photos</a></li>
+        <li><a href='/logout'>Logout</a></li>
+        <li><a href='/'>Home</a></li>
+    </ul>
+
+	{% if photos and album %}
+	<h3>Here's your photos in {{ album }}</h3>
+    <div>
+    	{% for photo in photos %}
+        <img src='data:image/png;base64, {{photo[0]}}' width="400" />
+ 		<p>Caption: {{ photo[2] }}</p>
+
+ 		<form method="post" action="/album">
+ 			<button type="submit" name="submit" value="0 {{ photo[1] }} {{ photo[3] }}">edit</button>
+            <input type='text' name='caption' placeholder='caption'></input>
+        </form>
+
+        <form method="post" action="/album">
+ 			<button type="submit" name="submit" value="1 {{ photo[1] }} {{ photo[3] }}">delete</button>
+        </form>
+    	{% endfor %}
+    </div>
+    {% else %}
+    <h3>There is no photo in this album! <a href="/upload">Upload now!</a></h3>
+	{% endif %}
+</body>
+</html>

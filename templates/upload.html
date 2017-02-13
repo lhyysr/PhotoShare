@@ -1,0 +1,56 @@
+<!-- author ben lawson (balawson@bu.edu) -->
+<!-- edited by: haoyuan liu (lhyysr@bu.edu -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Upload a photo</title>
+</head>
+<body>
+    <div class="title">
+        <h1>Upload a photo to Photoshare</h1>
+    </div>
+
+    <ul>
+        <li><a href="/profile">Profile</a></li>
+        <li><a href="/albums">Albums</a></li>
+        <li><a href="/photos">Photos</a></li>
+        <li><a href='/logout'>Logout</a></li>
+        <li><a href='/'>Home</a></li>
+    </ul>
+
+    {% if message %}
+    <p><em>{{ message }}</em></p>
+    {% endif %}
+
+    {% if UploadAlbum %}
+    <p><em>Album {{ UploadAlbum }} does not exist!</em></p>
+    <p>Do you want to <a href="/albums">create</a> it first?</p>
+    {% endif %}
+
+    {% if albums %}
+    <h3>Existing Albums:</h3>
+        <ul>
+            {% for album in albums %}
+            <!-- links to a page shows all photos in that album -->
+            <a href='/album?album_id={{ album[1] }}'><li>{{ album[0] }}</li></a>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    <form method="post" enctype="multipart/form-data" action="/upload">
+        <label for='album'>Select an Album:</label>
+        <input type="text" name="album" required="true" /><br />
+
+        <label for="photo">Select photo:</label>
+        <input type="file" name="photo" required='true' /><br />
+
+        <label for="caption">Enter caption:</label>
+        <input type="text" name="caption" /><br />
+
+        <label for='tags'>Enter Tag(s):</label>
+        <input type="text" name="tags" /><br />
+
+        <input type="submit" value="Upload" />
+    </form>
+</body>
+</html>

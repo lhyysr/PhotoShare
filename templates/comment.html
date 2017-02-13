@@ -1,0 +1,60 @@
+<!-- author: haoyuan liu (lhyysr@bu.edu) -->
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Comment</title>
+</head>
+<body>
+	<ul>
+		<li><a href='/'>Home</a></li>
+	</ul>
+
+	<h1>Comment Photo</h1>
+
+ 	{% if message %}
+ 		<p><em>{{ message }}</em></p>
+ 	{% endif %}
+
+	{% if photo %}
+	    <center><img src='data:image/png;base64, {{photo[0]}}' width="400" /></center>
+ 		<p style="text-align: center">Caption: {{ photo[2] }}</p>
+
+ 		{% if likes %}
+ 			{% if number %}
+ 				<p><strong>Likes</strong>: {{ number }}</p>
+ 			{% endif %}
+
+ 			<p>People who like this photo:</p>
+ 			<ul>
+ 				{% for like in likes%}
+ 				<li>{{ like }}</li>
+ 				{% endfor %}
+ 			</ul>
+ 		{% else %}
+ 			<p><strong>Likes</strong>: 0</p>
+ 		{% endif %} 	
+
+ 		<form method="post" action="/comment">
+ 			<center>
+ 				<button type="submit" name="like" value='{{ photo[1] }}'>Like</button>
+ 			</center>
+ 		</form>	
+
+		<p><strong>Comments:</strong></p>
+ 		{% if comments %}
+ 			<ul>
+ 				{% for comment in comments%}
+ 				<li><em>'{{ comment[1] }}'</em> commented by {{ comment[0] }} on {{ comment[2] }}</li>
+ 				{% endfor %}
+ 			</ul>
+ 		{% endif %}
+ 		
+ 		<form method="post" action="/comment">
+ 			<center>
+ 				<input type="text" name="comment" placeholder="leave your" required="true"/>
+ 				<button type="submit" name="submit" value='{{ photo[1] }}'>Comment</button>
+ 			</center>
+ 		</form>
+ 	{% endif %}
+</body>
+</html>

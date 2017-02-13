@@ -1,0 +1,62 @@
+<!-- author: haoyuan liu (lhyysr@bu.edu) -->
+<!DOCTYPE html>
+<html>
+<head>
+	{% if tag %}
+	<title>{{ tag }}</title>
+    {% else %}
+    <title>Modify Photo</title>
+	{% endif %}
+</head>
+<body>
+	{% if name %}
+	<h1>Photos of {{ name }}</h1>
+	{% endif %}
+
+	<ul>
+        <li><a href="/profile">Profile</a></li>
+        <li><a href="/albums">Albums</a></li>
+        <li><a href="/photos">Photos</a></li>
+        <li><a href='/logout'>Logout</a></li>
+        <li><a href='/'>Home</a></li>
+    </ul>
+
+    {% if message %}
+    <h3>{{message}}</h3>
+    {% endif %}
+
+    {% if private %}
+    	{% if photos and tag %}
+    	<h3>Here's your photos with tag {{ tag }}</h3>
+        <div>
+        	{% for photo in photos %}
+            <img src='data:image/png;base64, {{photo[0]}}' width="400" />
+     		<p>Caption: {{ photo[2] }}</p>
+
+     		<form method="post" action="/tag">
+     			<button type="submit" name="submit" value="0 {{ photo[1] }}">edit</button>
+                <input type='text' name='caption' placeholder='caption'></input>
+            </form>
+
+            <form method="post" action="/tag">
+     			<button type="submit" name="submit" value="1 {{ photo[1] }}">delete</button>
+            </form>
+        	{% endfor %}
+        </div>
+    	{% endif %}
+    
+    {% else %}
+        {% if photos and tag %}
+        <h3>Here's photos with tag {{ tag }}</h3>
+        <div>
+            {% for photo in photos %}
+            <img src='data:image/png;base64, {{photo[0]}}' width="400" />
+            <p>Caption: {{ photo[2] }}</p>
+            {% endfor %}
+        </div>
+        {% else %}
+        <h3>No photo found</h3>
+        {% endif %}        
+    {% endif %}    
+</body>
+</html>

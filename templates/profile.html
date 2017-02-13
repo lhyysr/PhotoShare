@@ -1,0 +1,54 @@
+<!-- author: haoyuan liu (lhyysr@bu.edu) -->
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Profile</title>
+</head>
+<body>
+	{% if name %}
+  	<h1>Profile of {{ name }}</h1>
+	{% endif %}
+
+	<ul>
+		<li><a href="/albums">Albums</a></li>
+		<li><a href="/photos">Photos</a></li>
+		<li><a href='/logout'>Logout</a></li>
+		<li><a href='/'>Home</a></li>
+	</ul>
+
+	{% if message %}
+ 	<p><em>{{message}}</em></p>
+	{% endif %}
+
+	<h3>Search people by names:</h3>
+	<form method="post" action="/profile">
+        <input type="text" name="name" required="true" placeholder="firsrt or last name" />
+        <input type="submit" name='submit' value="search" />
+    </form>
+
+   	{% if people %}
+    <h3>Search result:</h3>
+        <ul>
+            {% for person in people %}
+            <form method="post" action="/profile">
+ 				<li>
+ 					<button type="submit" name="submit" value='{{ person[0] }}'>Follow</button>
+ 					{{ person[1] }} {{ person[2] }}
+ 				</li>
+        	</form> 
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+	{% if friends %}
+    <h3>Here's Your Friends:</h3>
+        <ul>
+            {% for friend in friends %}
+            <li>{{ friend[1] }} {{ friend[2] }}</li>
+            {% endfor %}
+        </ul>
+    {% else %}
+    <h3>You don't have any friend. Go add some!</h3>
+    {% endif %}
+</body>
+</html>
