@@ -41,7 +41,7 @@ __Leaving comments__
 Both registered and anonymous users can leave comments. Users cannot leave comments for their own photos. If registered user leaves a comment then this counts towards their contribution score as described above.  
 __Like functionality__  
 We want to add a Like functionality. If a user likes a photo, should be able to add a like to the photo. Also, we must be able to see how many likes a photo has and the users that liked this photo.  
-__Youmayalsolike__  
+__You may also like__  
 Given the type of photos uploaded by a user we'd like to make some recommendations to them about other photos they may like. To achieve that do the following: Take the five most commonly used tags among the user's photos. Perform a disjunctive search through all the photos for these five tags. A photo that contains all five tags should be ranked higher than one that contained four of the tags and so on. Between two photos that contain the same number of matched tags prefer the one that is more concise, i.e., the one that has fewer tags over all.  
 __Tag recommendation__  
 We want to assist users in selecting tags for their photos. To do that ask the user to enter a couple of tags that they already have in mind. Perform a query and find all the photos, belonging to any user, that contain these tags. Take the tags of these photos in the result set and order them by frequency of occurrence (obviously you have to exclude the tags that were part of the query). Report back the most frequent tags as recommendations.  
